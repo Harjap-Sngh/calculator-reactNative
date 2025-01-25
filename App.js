@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { useState } from "react";
 
 export default function App() {
@@ -29,11 +36,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <TextInput style={styles.screen} placeholder="0" />
+      <TextInput style={styles.screen} placeholder="0" value={input} />
       <FlatList
         style={styles.content}
         data={info}
-        renderItem={({ item }) => <Text style={styles.text}>{item}</Text>}
+        renderItem={({ item }) => (
+          <Pressable onPress={() => setInput(input + item)}>
+            <Text style={styles.text}>{item}</Text>
+          </Pressable>
+        )}
         numColumns={4}
       />
       <StatusBar style="auto" />
