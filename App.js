@@ -124,6 +124,7 @@ import { evaluate } from "mathjs"; // Optional, if you're using mathjs for safet
 
 export default function App() {
   const [input, setInput] = useState("");
+  let pointAdded = false;
 
   const clear = (item) => {
     if (item === "AC") {
@@ -144,8 +145,24 @@ export default function App() {
       }
     } else if (item === "X") {
       setInput((prevInput) => prevInput + "*");
+    } else if (item === ".") {
+      if (!input.includes(".")) {
+        setInput((prevInput) => prevInput + ".");
+      } else {
+        if (
+          input.includes("+") ||
+          input.includes("-") ||
+          input.includes("*") ||
+          input.includes("/")
+        ) {
+          const lastNumber = input.split(/[\+\-\*\/]/).pop();
+          if (!lastNumber.includes(".")) {
+            setInput((prevInput) => prevInput + ".");
+            console.log("lastNumber", lastNumber);
+          }
+        }
+      }
     } else {
-      // Add the clicked button value to the input
       setInput((prevInput) => prevInput + item);
     }
   };
