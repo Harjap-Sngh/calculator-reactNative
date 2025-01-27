@@ -122,24 +122,26 @@ import {
 import { useState } from "react";
 import { evaluate } from "mathjs"; // Optional, if you're using mathjs for safety
 
-function operatorPressed(input, item) {
-  const lastChar = input.slice(-1);
-  if (
-    lastChar === "+" ||
-    lastChar === "-" ||
-    lastChar === "/" ||
-    lastChar === "*"
-  ) {
-    const operation = item;
-    input = input.slice(0, input.length - 1);
-    console.log("input", input);
-    console.log("operation", operation);
-  }
-}
-
 export default function App() {
   const [input, setInput] = useState("");
-  let pointAdded = false;
+
+  function operatorPressed(input, item) {
+    try {
+      const lastChar = input.slice(0, -1);
+      if (
+        lastChar === "+" ||
+        lastChar === "-" ||
+        lastChar === "/" ||
+        lastChar === "*"
+      ) {
+        const operation = item;
+        let problem = input.slice(0, -1);
+        setInput(problem + operation);
+      }
+    } catch (e) {
+      return;
+    }
+  }
 
   const clear = (item) => {
     if (item === "AC") {
@@ -154,7 +156,7 @@ export default function App() {
       );
     } else if (item === "=") {
       try {
-        setInput(evaluate(input).toString()); // Evaluate the expression
+        setInput(parseFloat(evaluate(input)).toFixed(2));
       } catch (error) {
         setInput("Error");
       }
@@ -174,13 +176,14 @@ export default function App() {
           const lastNumber = input.split(/[\+\-\*\/]/).pop();
           if (!lastNumber.includes(".")) {
             setInput((prevInput) => prevInput + ".");
-            console.log("lastNumber", lastNumber);
           }
         }
       }
     } else {
       setInput((prevInput) => prevInput + item);
-      operatorPressed(input, item);
+      if (item === "+" || item === "-" || item === "*" || item === "/") {
+        operatorPressed(input, item);
+      }
     }
   };
 
@@ -192,7 +195,7 @@ export default function App() {
     "7",
     "8",
     "9",
-    "X",
+    "*",
     "4",
     "5",
     "6",
