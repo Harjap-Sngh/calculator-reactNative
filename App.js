@@ -122,6 +122,21 @@ import {
 import { useState } from "react";
 import { evaluate } from "mathjs"; // Optional, if you're using mathjs for safety
 
+function operatorPressed(input, item) {
+  const lastChar = input.slice(-1);
+  if (
+    lastChar === "+" ||
+    lastChar === "-" ||
+    lastChar === "/" ||
+    lastChar === "*"
+  ) {
+    const operation = item;
+    input = input.slice(0, input.length - 1);
+    console.log("input", input);
+    console.log("operation", operation);
+  }
+}
+
 export default function App() {
   const [input, setInput] = useState("");
   let pointAdded = false;
@@ -145,6 +160,7 @@ export default function App() {
       }
     } else if (item === "X") {
       setInput((prevInput) => prevInput + "*");
+      operatorPressed(input, item);
     } else if (item === ".") {
       if (!input.includes(".")) {
         setInput((prevInput) => prevInput + ".");
@@ -164,6 +180,7 @@ export default function App() {
       }
     } else {
       setInput((prevInput) => prevInput + item);
+      operatorPressed(input, item);
     }
   };
 
