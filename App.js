@@ -120,14 +120,14 @@ import {
   View,
 } from "react-native";
 import { useState } from "react";
-import { evaluate } from "mathjs"; // Optional, if you're using mathjs for safety
+import { evaluate } from "mathjs";
 
 export default function App() {
   const [input, setInput] = useState("");
 
   function operatorPressed(input, item) {
-    try {
-      const lastChar = input.slice(0, -1);
+    if (input) {
+      const lastChar = input.slice(-1);
       if (
         lastChar === "+" ||
         lastChar === "-" ||
@@ -138,8 +138,6 @@ export default function App() {
         let problem = input.slice(0, -1);
         setInput(problem + operation);
       }
-    } catch (e) {
-      return;
     }
   }
 
@@ -213,7 +211,7 @@ export default function App() {
     <View style={styles.container}>
       <TextInput
         style={styles.screen}
-        value={input || "0"} // Default to 0 when input is empty
+        value={input || ""} // Default to 0 when input is empty
         editable={false} // Make it read-only for user input
       />
       <FlatList
