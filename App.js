@@ -35,13 +35,13 @@ export default function App() {
     } else if (item === "AC") {
       setInput(""); // Clear the input state
     } else if (item === "+/-") {
-      setInput((prevInput) =>
-        prevInput ? (-parseFloat(prevInput)).toString() : prevInput
-      );
+      const lastNumber = input.split(/[\+\-\*\/]/).pop();
+      const inputWithoutLastNumber = input.slice(0, -lastNumber.length);
+      setInput(() => inputWithoutLastNumber + parseFloat(lastNumber) * -1);
     } else if (item === "%") {
-      setInput((prevInput) =>
-        prevInput ? (parseFloat(prevInput) / 100).toString() : prevInput
-      );
+      const lastNumber = input.split(/[\+\-\*\/]/).pop();
+      const inputWithoutLastNumber = input.slice(0, -lastNumber.length);
+      setInput(() => inputWithoutLastNumber + parseFloat(lastNumber) / 100);
     } else if (item === "=") {
       try {
         if (input.includes(".")) {
