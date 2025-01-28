@@ -142,7 +142,9 @@ export default function App() {
   }
 
   const clear = (item) => {
-    if (item === "AC") {
+    if (item === "C") {
+      setInput((prevInput) => prevInput.slice(0, -1)); // Remove the last character
+    } else if (item === "AC") {
       setInput(""); // Clear the input state
     } else if (item === "+/-") {
       setInput((prevInput) =>
@@ -154,7 +156,11 @@ export default function App() {
       );
     } else if (item === "=") {
       try {
-        setInput(parseFloat(evaluate(input)).toFixed(2));
+        if (input.includes(".")) {
+          setInput(parseFloat(evaluate(input)).toFixed(2));
+        } else {
+          setInput(evaluate(input).toString());
+        }
       } catch (error) {
         setInput("Error");
       }
@@ -187,24 +193,25 @@ export default function App() {
 
   let info = [
     "AC",
+    "C",
     "+/-",
     "%",
-    "/",
     "7",
     "8",
     "9",
-    "*",
+    "/",
     "4",
     "5",
     "6",
-    "-",
+    "*",
     "1",
     "2",
     "3",
-    "+",
+    "-",
     "0",
     ".",
     "=",
+    "+",
   ];
 
   return (
