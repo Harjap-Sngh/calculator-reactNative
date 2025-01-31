@@ -29,6 +29,7 @@ export default function App() {
     }
   }
 
+  //this function will handle the input
   const clear = (item) => {
     if (item === "C") {
       setInput((prevInput) => prevInput.slice(0, -1)); 
