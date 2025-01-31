@@ -106,8 +106,8 @@ export default function App() {
     <View style={styles.container}>
       <TextInput
         style={styles.screen}
-        value={input || ""} // Default to 0 when input is empty
-        editable={false} // Make it read-only for user input
+        value={input || ""} 
+        editable={false} 
       />
       <FlatList
         style={styles.content}
