@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   screen: {
-    height: 250, // Adjusted for better layout
+    height: 250,
     width: "100%",
     backgroundColor: "gray",
     padding: 20,
