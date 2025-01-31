@@ -31,9 +31,9 @@ export default function App() {
 
   const clear = (item) => {
     if (item === "C") {
-      setInput((prevInput) => prevInput.slice(0, -1)); // Remove the last character
+      setInput((prevInput) => prevInput.slice(0, -1)); 
     } else if (item === "AC") {
-      setInput(""); // Clear the input state
+      setInput(""); 
     } else if (item === "+/-") {
       const lastNumber = input.split(/[\+\-\*\/]/).pop();
       const inputWithoutLastNumber = input.slice(0, -lastNumber.length);
